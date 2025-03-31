@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +17,7 @@ public class Desktop extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(new Dimension(1100, 700));
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setTitle("AppOS Desktop");
 
         JPanel barraTarefas = new JPanel();
