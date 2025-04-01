@@ -11,8 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Desktop extends JFrame {
+
+    public static JPanel desktop = new JPanel(); // possui 1090 de largura por 630 de altura
+
     Desktop(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(new Dimension(1100, 700));
@@ -25,14 +29,15 @@ public class Desktop extends JFrame {
         barraTarefas.setPreferredSize(new Dimension(0, 40));
         barraTarefas.setLayout(new BorderLayout());
 
-        JPanel desktop = new JPanel();
-        desktop.setBackground(Color.RED);
+        desktop.setLayout(null);
 
-        JButton menuIniciar = new JButton();
-        menuIniciar.setBackground(Color.BLACK);
+        JPanel menuIniciar = new JPanel();
+        menuIniciar.setBackground(Color.RED);
         menuIniciar.setBorder(null);
-        menuIniciar.setFocusable(false);
-        menuIniciar.setPreferredSize(new Dimension(50,40));
+        menuIniciar.setBounds(0, /* 331 */ 500, 400, 300); // colocar o y sempre como altura desktop - altura menuIniciar + 1
+        menuIniciar.setVisible(true);
+
+        BotaoIniciar.menuIniciar = menuIniciar;
 
         JPanel processos = new JPanel();
         processos.setBackground(Color.ORANGE);
@@ -46,11 +51,15 @@ public class Desktop extends JFrame {
 
         hora.format(formatador);
 
-        barraTarefas.add(menuIniciar, BorderLayout.WEST);
+        desktop.add(menuIniciar);
+
         barraTarefas.add(processos, BorderLayout.CENTER);
+        barraTarefas.add(BotaoIniciar.pegarBotaoIniciar(), BorderLayout.WEST);
 
         this.add(barraTarefas, BorderLayout.SOUTH);
         this.add(desktop, BorderLayout.CENTER);
         this.setVisible(true);
+
+        System.out.println(desktop.getSize());
     }
 }
