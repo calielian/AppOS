@@ -7,4 +7,6 @@ AppOS é nada mais que um aplicativo que simula um sistema operacional.
 - Uma interface gráfica boa
 - Um aplicativo editor de texto incluso
 
+***Todos os ícones utilizados foram retirados do repósitório de ícones open source [Boxicons](https://github.com/atisawd/boxicons)***
+
 Feito com colaboração de Rafael Cabral e Mateus Henrique.
