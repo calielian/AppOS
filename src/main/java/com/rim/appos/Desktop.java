@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +28,10 @@ public class Desktop extends JFrame {
         JPanel processos = new JPanel();
         JPanel extras = new JPanel();
 
-        JButton botaoDesligar = new JButton("Desligar");
+        JPanel botoesMenuIniciar = new JPanel();
+        JPanel appsMenuIniciar = new JPanel();
+
+        JLabel wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
 
         // declarações das variáveis da thread do relógio da barra de tarefas
         JLabel horario = new JLabel();
@@ -49,31 +49,35 @@ public class Desktop extends JFrame {
         // configurando os JPanels
 
         desktop.setLayout(null);
-        desktop.setBackground(Color.GRAY);
 
         barraTarefas.setBackground(Color.GREEN);
         barraTarefas.setPreferredSize(new Dimension(0, 40));
         barraTarefas.setLayout(new BorderLayout());
 
-        menuIniciar.setBackground(Color.LIGHT_GRAY);
+        menuIniciar.setBackground(Color.DARK_GRAY);
+        menuIniciar.setLayout(new BorderLayout());
         menuIniciar.setBorder(null);
         menuIniciar.setBounds(0, 331, 400, 300); // colocar o y sempre como altura desktop - altura menuIniciar + 1
         menuIniciar.setVisible(false);
+
+        botoesMenuIniciar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        botoesMenuIniciar.setPreferredSize(new Dimension(0, 50));
 
         processos.setBackground(new Color(0x2A2E32));
 
         extras.setBackground(Color.DARK_GRAY);
         extras.setPreferredSize(new Dimension(100, barraTarefas.getHeight()));
 
-        botaoDesligar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Desktop.desligar();
-            }
-        });
+        botoesMenuIniciar.setBackground(Color.GRAY);
+
+        appsMenuIniciar.setBackground(null);
+
+        wallpaper.setBounds(0, 0, 1100, 700);
+        wallpaper.setFocusable(false);
 
         // fim das configurações, início dos comandos de adicionar
         desktop.add(menuIniciar);
+        desktop.add(wallpaper);
 
         extras.add(horario);
 
@@ -83,7 +87,11 @@ public class Desktop extends JFrame {
 
         BotaoIniciar.menuIniciar = menuIniciar;
 
-        menuIniciar.add(botaoDesligar);
+        botoesMenuIniciar.add(BotoesMenuIniciar.pegarBotaoDesligar());
+        botoesMenuIniciar.add(BotoesMenuIniciar.pegarBotaoReiniciar());
+
+        menuIniciar.add(botoesMenuIniciar, BorderLayout.SOUTH);
+        menuIniciar.add(appsMenuIniciar, BorderLayout.CENTER);
 
         this.add(barraTarefas, BorderLayout.SOUTH);
         this.add(desktop, BorderLayout.CENTER);
@@ -92,9 +100,5 @@ public class Desktop extends JFrame {
         // fim das adições, abaixo é após a desktop iniciar
 
         System.out.println(desktop.getSize());
-    }
-
-    public static void desligar(){
-        System.exit(0);
     }
 }

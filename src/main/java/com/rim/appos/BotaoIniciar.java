@@ -9,11 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class BotaoIniciar extends JButton {
+public class BotaoIniciar {
 
     public static JPanel menuIniciar;
 
-    private static ImageIcon iconeMenuIniciar = new ImageIcon(BotaoIniciar.class.getResource("/assets/menuIniciarIcon.png"));
+    private static ImageIcon iconeMenuIniciar = new ImageIcon(BotaoIniciar.class.getResource("/assets/menuIniciar.png"));
 
     public static JButton pegarBotaoIniciar() {
         JButton botao = new JButton();
