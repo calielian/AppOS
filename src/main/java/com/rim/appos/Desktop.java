@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +15,23 @@ public class Desktop extends JFrame implements Runnable {
 
     public JFrame frame;
 
+    private static JPanel barraTarefas = new JPanel();
+    private static JPanel menuIniciar = new JPanel();
+    private static JPanel desktop = new JPanel();
+    private static JPanel processos = new JPanel();
+    private static JPanel extras = new JPanel();
+
+    private static JPanel botoesMenuIniciar = new JPanel();
+    private static JPanel appsMenuIniciar = new JPanel();
+    private static JLabel wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
+
+    private static JLabel horario = new JLabel();
+
+    private static JComponent[] listaComponentes = {barraTarefas, menuIniciar, desktop, processos, extras, botoesMenuIniciar, appsMenuIniciar, wallpaper, horario};
+
+    private static Relogio relogio;
+    private static Thread threadRelogio;
+
     Desktop(JFrame frame){
         this.frame = frame;
     }
@@ -21,25 +39,24 @@ public class Desktop extends JFrame implements Runnable {
     @Override
     public void run() {
         // declaração de variáveis
-        JPanel barraTarefas = new JPanel();
-        JPanel menuIniciar = new JPanel();
-        JPanel desktop = new JPanel(); // possui 1090 de largura por 630 de altura
-        JPanel processos = new JPanel();
-        JPanel extras = new JPanel();
+        barraTarefas = new JPanel();
+        menuIniciar = new JPanel();
+        desktop = new JPanel();
+        processos = new JPanel();
+        extras = new JPanel();
 
-        JPanel botoesMenuIniciar = new JPanel();
-        JPanel appsMenuIniciar = new JPanel();
-
-        JLabel wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
+        botoesMenuIniciar = new JPanel();
+        appsMenuIniciar = new JPanel();
+        wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
 
         // declarações das variáveis da thread do relógio da barra de tarefas
-        JLabel horario = new JLabel();
+        
         horario.setForeground(Color.WHITE);
 
-        Relogio relogio = new Relogio();
+        relogio = new Relogio();
         relogio.horario = horario;
 
-        Thread threadRelogio = new Thread(relogio); // inicia uma thread (processo separado) para o relógio
+        threadRelogio = new Thread(relogio); // inicia uma thread (processo separado) para o relógio
         threadRelogio.setDaemon(true); // esse comando faz a thread encerrar quando essa thread (o processo do desktop) ser encerrado
         threadRelogio.start();
 
@@ -101,5 +118,18 @@ public class Desktop extends JFrame implements Runnable {
         // fim das adições, abaixo é após a desktop iniciar
 
         System.out.println(desktop.getSize());
+    }
+
+    public static void limpar() {
+        for (JComponent componente : listaComponentes) {
+            if (componente.getComponentCount() > 0) {
+                componente.removeAll();
+            }
+
+            componente = null;
+        }
+
+        threadRelogio.interrupt();
+        relogio = null;
     }
 }

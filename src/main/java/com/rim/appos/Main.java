@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Main extends JFrame {
+
+    private static JFrame frame;
+    private static Thread threadDesktop;
     public static void main(String[] args) {
 
         // setup inicial
-        JFrame frame = new JFrame("AppOS Desktop");
+        frame = new JFrame("AppOS Desktop");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setSize(new Dimension(1100, 700));
         frame.setResizable(false);
@@ -17,12 +20,31 @@ public class Main extends JFrame {
 
         new BotoesMenuIniciar();
 
-        // criação da thread do desktop
-        Desktop desktop = new Desktop(frame);
-        Thread threadDesktop = new Thread(desktop);
+        iniciarDesktop();
 
-        // inicializando a thread
+        BotoesMenuIniciar.botaoReinciar.addActionListener(e -> reiniciarDesktop());
+    }
+
+    private static void iniciarDesktop() {
+        Desktop desktop = new Desktop(frame);
+        threadDesktop = new Thread(desktop);
         threadDesktop.setDaemon(true);
         threadDesktop.start();
+    }
+
+    private static void reiniciarDesktop() {
+        frame.getContentPane().removeAll();
+
+        Desktop.limpar();
+
+        if (threadDesktop != null && threadDesktop.isAlive()) {
+            threadDesktop.interrupt();
+        }
+
+        System.gc();
+
+        iniciarDesktop();
+        frame.revalidate();
+        frame.repaint();
     }
 }
