@@ -10,21 +10,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Desktop extends JFrame {
+public class Desktop extends JFrame implements Runnable {
 
-    public static JPanel desktop = new JPanel(); // possui 1090 de largura por 630 de altura
+    public JFrame frame;
 
-    Desktop(){
+    Desktop(JFrame frame){
+        this.frame = frame;
+    }
+
+    @Override
+    public void run() {
         // setup inicial
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(new Dimension(1100, 700));
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setTitle("AppOS Desktop");
 
         // declaração de variáveis
         JPanel barraTarefas = new JPanel();
         JPanel menuIniciar = new JPanel();
+        JPanel desktop = new JPanel(); // possui 1090 de largura por 630 de altura
         JPanel processos = new JPanel();
         JPanel extras = new JPanel();
 
@@ -93,9 +94,11 @@ public class Desktop extends JFrame {
         menuIniciar.add(botoesMenuIniciar, BorderLayout.SOUTH);
         menuIniciar.add(appsMenuIniciar, BorderLayout.CENTER);
 
-        this.add(barraTarefas, BorderLayout.SOUTH);
-        this.add(desktop, BorderLayout.CENTER);
-        this.setVisible(true);
+        frame.add(barraTarefas, BorderLayout.SOUTH);
+        frame.add(desktop, BorderLayout.CENTER);
+        
+        frame.revalidate();
+        frame.repaint();
 
         // fim das adições, abaixo é após a desktop iniciar
 
