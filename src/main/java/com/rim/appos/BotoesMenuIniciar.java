@@ -10,19 +10,24 @@ import javax.swing.JButton;
 
 public class BotoesMenuIniciar {
 
-    private static JButton botaoDesligar = new JButton();
-    private static ImageIcon iconeBotaoDesligar = new ImageIcon(BotaoIniciar.class.getResource("/assets/botaoDesligar.png"));
+    public static JButton botaoDesligar = new JButton();
+    private ImageIcon iconeBotaoDesligar = new ImageIcon(BotaoIniciar.class.getResource("/assets/botaoDesligar.png"));
 
-    private static JButton botaoReinciar = new JButton();
-    private static ImageIcon iconeBotaoReiniciar = new ImageIcon(BotaoIniciar.class.getResource("/assets/botaoReiniciar.png"));
+    public static JButton botaoReinciar = new JButton();
+    private ImageIcon iconeBotaoReiniciar = new ImageIcon(BotaoIniciar.class.getResource("/assets/botaoReiniciar.png"));
 
-    public static JButton pegarBotaoDesligar() {
+    private JButton[] botoes = {botaoDesligar, botaoReinciar};
 
-        botaoDesligar.setPreferredSize(new Dimension(50, 40));
-        botaoDesligar.setBackground(Color.DARK_GRAY);
-        botaoDesligar.setBorder(null);
-        botaoDesligar.setFocusable(false);
+    BotoesMenuIniciar() {
+        for (JButton botao : botoes) {
+            botao.setPreferredSize(new Dimension(50, 40));
+            botao.setBackground(Color.DARK_GRAY);
+            botao.setBorder(null);
+            botao.setFocusable(false);
+        }
+
         botaoDesligar.setIcon(iconeBotaoDesligar);
+        botaoReinciar.setIcon(iconeBotaoReiniciar);
 
         botaoDesligar.addActionListener(new ActionListener() {
             @Override
@@ -30,25 +35,5 @@ public class BotoesMenuIniciar {
                 System.exit(0);
             }
         });
-
-        return botaoDesligar;
-    }
-
-    public static JButton pegarBotaoReiniciar(){
-
-        botaoReinciar.setPreferredSize(new Dimension(50, 40));
-        botaoReinciar.setBackground(Color.DARK_GRAY);
-        botaoReinciar.setBorder(null);
-        botaoReinciar.setFocusable(false);
-        botaoReinciar.setIcon(iconeBotaoReiniciar);
-
-        botaoReinciar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("Reiniciar");
-            }
-        });
-
-        return botaoReinciar;
     }
 }

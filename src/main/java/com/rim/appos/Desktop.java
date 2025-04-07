@@ -20,8 +20,6 @@ public class Desktop extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        // setup inicial
-
         // declaração de variáveis
         JPanel barraTarefas = new JPanel();
         JPanel menuIniciar = new JPanel();
@@ -88,8 +86,8 @@ public class Desktop extends JFrame implements Runnable {
 
         BotaoIniciar.menuIniciar = menuIniciar;
 
-        botoesMenuIniciar.add(BotoesMenuIniciar.pegarBotaoDesligar());
-        botoesMenuIniciar.add(BotoesMenuIniciar.pegarBotaoReiniciar());
+        botoesMenuIniciar.add(BotoesMenuIniciar.botaoDesligar);
+        botoesMenuIniciar.add(BotoesMenuIniciar.botaoReinciar);
 
         menuIniciar.add(botoesMenuIniciar, BorderLayout.SOUTH);
         menuIniciar.add(appsMenuIniciar, BorderLayout.CENTER);
