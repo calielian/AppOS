@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import com.rim.appos.editor.UI;
+
 public class BotoesMenuIniciar {
 
     public static JButton botaoDesligar = new JButton();
@@ -16,7 +18,9 @@ public class BotoesMenuIniciar {
     public static JButton botaoReinciar = new JButton();
     private ImageIcon iconeBotaoReiniciar = new ImageIcon(BotaoIniciar.class.getResource("/assets/botaoReiniciar.png"));
 
-    private JButton[] botoes = {botaoDesligar, botaoReinciar};
+    public static JButton botaoEditorDeTexto = new JButton();
+
+    private JButton[] botoes = {botaoDesligar, botaoReinciar, botaoEditorDeTexto};
 
     BotoesMenuIniciar() {
         for (JButton botao : botoes) {
@@ -28,11 +32,19 @@ public class BotoesMenuIniciar {
 
         botaoDesligar.setIcon(iconeBotaoDesligar);
         botaoReinciar.setIcon(iconeBotaoReiniciar);
+        botaoEditorDeTexto.setIcon(iconeBotaoDesligar);
 
         botaoDesligar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 System.exit(0);
+            }
+        });
+
+        botaoEditorDeTexto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UI.iniciar();
             }
         });
     }

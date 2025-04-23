@@ -11,12 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.rim.appos.editor.UI;
+
 public class Desktop extends JFrame implements Runnable {
 
     public JFrame frame;
 
     private static JPanel barraTarefas = new JPanel();
-    private static JPanel menuIniciar = new JPanel();
+    public static JPanel menuIniciar = new JPanel();
     private static JPanel desktop = new JPanel();
     private static JPanel processos = new JPanel();
     private static JPanel extras = new JPanel();
@@ -25,9 +27,11 @@ public class Desktop extends JFrame implements Runnable {
     private static JPanel appsMenuIniciar = new JPanel();
     private static JLabel wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
 
+    private static JPanel janelaApp = new JPanel();
+
     private static JLabel horario = new JLabel();
 
-    private static JComponent[] listaComponentes = {barraTarefas, menuIniciar, desktop, processos, extras, botoesMenuIniciar, appsMenuIniciar, wallpaper, horario};
+    private static JComponent[] listaComponentes = {barraTarefas, menuIniciar, desktop, processos, extras, botoesMenuIniciar, appsMenuIniciar, wallpaper, janelaApp, horario};
 
     private static Relogio relogio;
     private static Thread threadRelogio;
@@ -38,17 +42,6 @@ public class Desktop extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        // declaração de variáveis
-        barraTarefas = new JPanel();
-        menuIniciar = new JPanel();
-        desktop = new JPanel();
-        processos = new JPanel();
-        extras = new JPanel();
-
-        botoesMenuIniciar = new JPanel();
-        appsMenuIniciar = new JPanel();
-        wallpaper = new JLabel(new ImageIcon(Desktop.class.getResource("/assets/wallpaper.png")));
-
         // declarações das variáveis da thread do relógio da barra de tarefas
         
         horario.setForeground(Color.WHITE);
@@ -61,8 +54,6 @@ public class Desktop extends JFrame implements Runnable {
         threadRelogio.start();
 
         // fim das declarações, início das configurações
-
-        // configurando os JPanels
 
         desktop.setLayout(null);
 
@@ -94,6 +85,7 @@ public class Desktop extends JFrame implements Runnable {
         // fim das configurações, início dos comandos de adicionar
         desktop.add(menuIniciar);
         desktop.add(wallpaper);
+        desktop.add(janelaApp);
 
         extras.add(horario);
 
@@ -102,6 +94,10 @@ public class Desktop extends JFrame implements Runnable {
         barraTarefas.add(extras, BorderLayout.EAST);
 
         BotaoIniciar.menuIniciar = menuIniciar;
+
+        UI.janelaApp = janelaApp;
+
+        appsMenuIniciar.add(BotoesMenuIniciar.botaoEditorDeTexto);
 
         botoesMenuIniciar.add(BotoesMenuIniciar.botaoDesligar);
         botoesMenuIniciar.add(BotoesMenuIniciar.botaoReinciar);
